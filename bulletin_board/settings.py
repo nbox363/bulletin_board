@@ -53,6 +53,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'main.middlewares.bulletin_board_context_processor',
             ],
         },
     },
