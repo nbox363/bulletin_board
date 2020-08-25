@@ -4,23 +4,20 @@ from django.core.exceptions import ValidationError
 from django.forms import inlineformset_factory
 from captcha.fields import CaptchaField
 
-from .models import AdvUser, SuperRubric, SubRubric, user_registrated, \
-    AdditionalImage, Bb, Comment
+from .models import AdvUser, SuperRubric, SubRubric
+from .models import user_registrated, Bb, AdditionalImage, Comment
 
 
 class ChangeUserInfoForm(forms.ModelForm):
-    email = forms.EmailField(required=True,
-                             label='Адрес электронной почты')
+    email = forms.EmailField(required=True, label='Адрес электронной почты')
 
     class Meta:
         model = AdvUser
-        fields = ('username', 'email', 'first_name',
-                  'last_name', 'send_messages')
+        fields = ('username', 'email', 'first_name', 'last_name', 'send_messages')
 
 
 class RegisterUserForm(forms.ModelForm):
-    email = forms.EmailField(required=True,
-                             label='Адрес электронной почты')
+    email = forms.EmailField(required=True, label='Адрес электронной почты')
     password1 = forms.CharField(
         label='Пароль',
         widget=forms.PasswordInput,
@@ -42,8 +39,8 @@ class RegisterUserForm(forms.ModelForm):
         password2 = self.cleaned_data['password2']
         if password1 and password2 and password1 != password2:
             errors = {
-                'password2': ValidationError(
-                    'Введенные пароли не совпадают', code='password_mismatch')
+                'password2': ValidationError('Введенные пароли не совпадают',
+                                             code='password_mismatch')
             }
             raise ValidationError(errors)
 
@@ -65,8 +62,8 @@ class RegisterUserForm(forms.ModelForm):
 
 class SubRubricForm(forms.ModelForm):
     super_rubric = forms.ModelChoiceField(
-        queryset=SuperRubric.objects.all(),
-        empty_label=None, label='Надрубрика', required=True)
+        queryset=SuperRubric.objects.all(), empty_label=None,
+        label='Надрубрика', required=True)
 
     class Meta:
         model = SubRubric
@@ -94,8 +91,9 @@ class UserCommentForm(forms.ModelForm):
 
 
 class GuestCommentForm(forms.ModelForm):
-    captcha = CaptchaField(label='Введите текст с картинки',
-                           error_messages={'invalid': 'Неправильный текст'})
+    captcha = CaptchaField(
+        label='Введите текст с картинки',
+        error_messages={'invalid': 'Неправильный текст'})
 
     class Meta:
         model = Comment

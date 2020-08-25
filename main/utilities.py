@@ -5,7 +5,6 @@ from os.path import splitext
 
 from bulletin_board.settings import ALLOWED_HOSTS
 
-
 signer = Signer()
 
 
