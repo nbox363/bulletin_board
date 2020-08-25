@@ -1,7 +1,7 @@
 from .models import SubRubric
 
 
-def bboard_context_processor(request):
+def bulletin_board_context_processor(request):
     context = {}
     context['rubrics'] = SubRubric.objects.all()
     context['keyword'] = ''
